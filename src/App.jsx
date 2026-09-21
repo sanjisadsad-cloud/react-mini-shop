@@ -94,7 +94,9 @@ useEffect(() => {
   // =========================
   // 5. ДОБАВЛЕНИЕ В КОРЗИНУ
   // =========================
-
+function logoutUser() {
+  setIsRegistered(false);
+}
   function addToCart(selectedProduct) {
     const existingProduct = cart.find(function (productInCart) {
       return productInCart.id === selectedProduct.id;
@@ -281,6 +283,7 @@ useEffect(() => {
             onChange={(event) =>
               setSearch(event.target.value)
             }
+            
           />
         </div>
 
@@ -408,7 +411,9 @@ useEffect(() => {
             Очистить корзину
           </button>
         )}
-
+<button className="logout-button" onClick={logoutUser}>
+  Выйти
+</button>
       </div>
     </div>
   );

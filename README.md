@@ -1,16 +1,103 @@
-# React + Vite
+# React Mini Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Учебный интернет-магазин, созданный на React + Vite.
 
-Currently, two official plugins are available:
+Проект сделан для практики работы с React, состоянием, массивами, localStorage и основными возможностями интернет-магазина.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Демо
 
-## React Compiler
+https://react-mini-shop-eosin.vercel.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Возможности
 
-## Expanding the ESLint configuration
+- Регистрация пользователя
+- Выход из аккаунта
+- Поиск товаров
+- Сортировка товаров по цене
+- Добавление товаров в корзину
+- Увеличение количества товара
+- Уменьшение количества товара
+- Удаление товара из корзины
+- Очистка всей корзины
+- Подсчёт общей стоимости
+- Сохранение корзины через localStorage
+- Сохранение состояния регистрации
+- Светлая и тёмная тема
+- Адаптивная версия для мобильных устройств
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Технологии
+
+- React
+- JavaScript
+- HTML
+- CSS
+- Vite
+- localStorage
+- Git
+- GitHub
+- Vercel
+
+## 📸 Скриншоты
+
+### Регистрация
+
+![Регистрация](./screenshots/register.png)
+
+### Магазин
+
+![Магазин](./screenshots/shop.png)
+
+### Корзина
+
+![Корзина](./screenshots/cart.png)
+
+## 💻 Запуск проекта
+
+Склонируйте репозиторий:
+
+```bash
+git clone https://github.com/sanjisadsad-cloud/react-mini-shop.git
+```
+
+Перейдите в папку проекта:
+
+```bash
+cd react-mini-shop
+```
+
+Установите зависимости:
+
+```bash
+npm install
+```
+
+Запустите проект:
+
+```bash
+npm run dev
+```
+
+После запуска проект будет доступен локально в браузере.
+
+## 📚 Что я изучил в этом проекте
+
+Во время разработки проекта я использовал:
+
+- `useState`
+- `useEffect`
+- `map()`
+- `filter()`
+- `find()`
+- `forEach()`
+- `sort()`
+- условный рендеринг
+- обработчики событий
+- controlled inputs
+- localStorage
+- работу с массивами объектов
+- работу с Git и GitHub
+- деплой проекта на Vercel
+
+## 👨‍💻 Автор
+
+Sanzhar Bekseitov
