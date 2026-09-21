@@ -6,9 +6,10 @@ body {
 }
 
 .shop {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  width: 100%;
+  margin: 0;
+  padding: 40px 30px;
+  box-sizing: border-box;
 }
 
 .shop > h1 {
@@ -19,13 +20,14 @@ body {
 
 .products {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 30px;
+  width: 100%;
 }
 
 .product-card {
-  width: 200px;
+  width: 280px;
   background: white;
   padding: 25px;
   border-radius: 18px;
