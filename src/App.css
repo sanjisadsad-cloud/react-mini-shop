@@ -342,3 +342,39 @@ button:hover {
   display: block;
   margin: 30px auto 0;
 }
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.navigation a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #0071e3;
+}
+
+.navigation a:hover {
+  opacity: 0.7;
+}
+
+.dark-mode .navigation a {
+  color: white;
+}
+
+.home-page {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.home-page p {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.logout-button {
+  display: block;
+  margin: 40px auto 0;
+}

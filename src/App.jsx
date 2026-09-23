@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 
 function App() {
   // =========================
-  // 1. ТОВАРЫ МАГАЗИНА
+  // 1. ТОВАРЫ
   // =========================
 
   const products = [
@@ -33,17 +34,17 @@ function App() {
   // 2. STATE
   // =========================
 
-  // Регистрация
   const [isRegistered, setIsRegistered] = useState(() => {
-  const savedRegistration = localStorage.getItem("isRegistered");
+    const savedRegistration =
+      localStorage.getItem("isRegistered");
 
-  return savedRegistration === "true";
-});
+    return savedRegistration === "true";
+  });
+
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Корзина
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
 
@@ -54,13 +55,12 @@ function App() {
     return [];
   });
 
-  // Сортировка
-  const [sortOrder, setSortOrder] = useState("default");
+  const [sortOrder, setSortOrder] =
+    useState("default");
 
-  // Тёмная тема
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] =
+    useState(false);
 
-  // Поиск
   const [search, setSearch] = useState("");
 
   // =========================
@@ -68,11 +68,19 @@ function App() {
   // =========================
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(cart)
+    );
   }, [cart]);
-useEffect(() => {
-  localStorage.setItem("isRegistered", isRegistered);
-}, [isRegistered]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "isRegistered",
+      isRegistered
+    );
+  }, [isRegistered]);
+
   // =========================
   // 4. РЕГИСТРАЦИЯ
   // =========================
@@ -91,28 +99,39 @@ useEffect(() => {
     setIsRegistered(true);
   }
 
+  function logoutUser() {
+    setIsRegistered(false);
+  }
+
   // =========================
   // 5. ДОБАВЛЕНИЕ В КОРЗИНУ
   // =========================
-function logoutUser() {
-  setIsRegistered(false);
-}
+
   function addToCart(selectedProduct) {
-    const existingProduct = cart.find(function (productInCart) {
-      return productInCart.id === selectedProduct.id;
-    });
+    const existingProduct = cart.find(
+      function (productInCart) {
+        return (
+          productInCart.id === selectedProduct.id
+        );
+      }
+    );
 
     if (existingProduct) {
-      const cartAfterQuantityUpdate = cart.map(function (productInCart) {
-        if (productInCart.id === selectedProduct.id) {
-          return {
-            ...productInCart,
-            quantity: productInCart.quantity + 1,
-          };
-        }
+      const cartAfterQuantityUpdate =
+        cart.map(function (productInCart) {
+          if (
+            productInCart.id ===
+            selectedProduct.id
+          ) {
+            return {
+              ...productInCart,
+              quantity:
+                productInCart.quantity + 1,
+            };
+          }
 
-        return productInCart;
-      });
+          return productInCart;
+        });
 
       setCart(cartAfterQuantityUpdate);
     } else {
@@ -126,92 +145,121 @@ function logoutUser() {
   }
 
   // =========================
-  // 6. УМЕНЬШЕНИЕ КОЛИЧЕСТВА
+  // 6. УМЕНЬШЕНИЕ
   // =========================
 
   function decreaseQuantity(itemToDecrease) {
     if (itemToDecrease.quantity === 1) {
-      const cartAfterRemove = cart.filter(function (productInCart) {
-        return productInCart.id !== itemToDecrease.id;
-      });
+      const cartAfterRemove =
+        cart.filter(function (productInCart) {
+          return (
+            productInCart.id !==
+            itemToDecrease.id
+          );
+        });
 
       setCart(cartAfterRemove);
-
       return;
     }
 
-    const cartAfterDecrease = cart.map(function (productInCart) {
-      if (productInCart.id === itemToDecrease.id) {
-        return {
-          ...productInCart,
-          quantity: productInCart.quantity - 1,
-        };
-      }
+    const cartAfterDecrease =
+      cart.map(function (productInCart) {
+        if (
+          productInCart.id ===
+          itemToDecrease.id
+        ) {
+          return {
+            ...productInCart,
+            quantity:
+              productInCart.quantity - 1,
+          };
+        }
 
-      return productInCart;
-    });
+        return productInCart;
+      });
 
     setCart(cartAfterDecrease);
   }
 
   // =========================
-  // 7. УДАЛЕНИЕ ИЗ КОРЗИНЫ
+  // 7. УДАЛЕНИЕ
   // =========================
 
   function removeFromCart(idToRemove) {
-    const cartAfterRemove = cart.filter(function (productInCart) {
-      return productInCart.id !== idToRemove;
-    });
+    const cartAfterRemove =
+      cart.filter(function (productInCart) {
+        return productInCart.id !== idToRemove;
+      });
 
     setCart(cartAfterRemove);
   }
 
   // =========================
-  // 8. ИТОГОВАЯ СУММА
+  // 8. ИТОГ
   // =========================
 
   let totalPrice = 0;
 
   cart.forEach(function (priceItem) {
     totalPrice =
-      totalPrice + priceItem.price * priceItem.quantity;
+      totalPrice +
+      priceItem.price * priceItem.quantity;
   });
 
   // =========================
   // 9. ПОИСК
   // =========================
 
-  const filteredProducts = products.filter(function (productToCheck) {
-    return productToCheck.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
-  });
+  const filteredProducts =
+    products.filter(function (productToCheck) {
+      return productToCheck.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+    });
 
   // =========================
   // 10. СОРТИРОВКА
   // =========================
 
-  const sortedProducts = [...filteredProducts];
+  const sortedProducts = [
+    ...filteredProducts,
+  ];
 
   if (sortOrder === "cheap") {
-    sortedProducts.sort(function (firstProduct, secondProduct) {
-      return firstProduct.price - secondProduct.price;
-    });
+    sortedProducts.sort(
+      function (firstProduct, secondProduct) {
+        return (
+          firstProduct.price -
+          secondProduct.price
+        );
+      }
+    );
   }
 
   if (sortOrder === "expensive") {
-    sortedProducts.sort(function (firstProduct, secondProduct) {
-      return secondProduct.price - firstProduct.price;
-    });
+    sortedProducts.sort(
+      function (firstProduct, secondProduct) {
+        return (
+          secondProduct.price -
+          firstProduct.price
+        );
+      }
+    );
   }
 
   // =========================
-  // 11. СТРАНИЦА РЕГИСТРАЦИИ
+  // 11. РЕГИСТРАЦИЯ
   // =========================
 
   if (!isRegistered) {
     return (
-      <div className={isDarkMode ? "page dark-mode" : "page"}>
+      <div
+        className={
+          isDarkMode
+            ? "page dark-mode"
+            : "page"
+        }
+      >
         <div className="register-box">
           <h1>Регистрация</h1>
 
@@ -221,7 +269,9 @@ function logoutUser() {
               placeholder="Ваше имя"
               value={userName}
               onChange={(event) =>
-                setUserName(event.target.value)
+                setUserName(
+                  event.target.value
+                )
               }
             />
 
@@ -239,7 +289,9 @@ function logoutUser() {
               placeholder="Пароль"
               value={password}
               onChange={(event) =>
-                setPassword(event.target.value)
+                setPassword(
+                  event.target.value
+                )
               }
             />
 
@@ -253,167 +305,270 @@ function logoutUser() {
   }
 
   // =========================
-  // 12. ОСНОВНОЙ МАГАЗИН
+  // 12. ОСНОВНОЕ ПРИЛОЖЕНИЕ
   // =========================
 
   return (
-    <div className={isDarkMode ? "page dark-mode" : "page"}>
+    <div
+      className={
+        isDarkMode
+          ? "page dark-mode"
+          : "page"
+      }
+    >
       <div className="shop">
-
-        {/* ТЁМНАЯ ТЕМА */}
 
         <button
           className="theme-button"
-          onClick={() => setIsDarkMode(!isDarkMode)}
+          onClick={() =>
+            setIsDarkMode(!isDarkMode)
+          }
         >
           {isDarkMode ? "☀️" : "🌙"}
         </button>
 
         <h1>Mini Shop</h1>
 
-        {/* ПОИСК */}
+        {/* НАВИГАЦИЯ */}
 
-        <div className="search-box">
-          <span className="search-icon">🔍</span>
+        <nav className="navigation">
+          <Link to="/">Главная</Link>
 
-          <input
-            type="text"
-            placeholder="Поиск товара"
-            value={search}
-            onChange={(event) =>
-              setSearch(event.target.value)
-            }
-            
-          />
-        </div>
+          <Link to="/products">
+            Товары
+          </Link>
 
-        {/* СОРТИРОВКА */}
+          <Link to="/cart">
+            Корзина ({cart.length})
+          </Link>
+        </nav>
 
-        <div className="sort-box">
-          <span className="sort-label">
-            Сортировка:
-          </span>
+        {/* ROUTER */}
 
-          <select
-            className="sort-select"
-            value={sortOrder}
-            onChange={(event) =>
-              setSortOrder(event.target.value)
-            }
-          >
-            <option value="default">
-              Без сортировки
-            </option>
+        <Routes>
 
-            <option value="cheap">
-              Сначала дешёвые
-            </option>
+          {/* ГЛАВНАЯ */}
 
-            <option value="expensive">
-              Сначала дорогие
-            </option>
-          </select>
-        </div>
+          <Route
+            path="/"
+            element={
+              <div className="home-page">
+                <h2>
+                  Добро пожаловать в Mini Shop
+                </h2>
 
-        {/* КОЛИЧЕСТВО ТОВАРОВ В КОРЗИНЕ */}
+                <p>
+                  Выберите товары и добавьте
+                  их в корзину.
+                </p>
 
-        <h2>Корзина: {cart.length}</h2>
-
-        {/* ТОВАРЫ */}
-
-        <div className="products">
-          {sortedProducts.map(function (currentProduct) {
-            return (
-              <div
-                className="product-card"
-                key={currentProduct.id}
-              >
-                <h2>{currentProduct.name}</h2>
-
-                <p>{currentProduct.price} ₸</p>
-
-                <button
-                  onClick={() =>
-                    addToCart(currentProduct)
-                  }
-                >
-                  В корзину
-                </button>
+                <Link to="/products">
+                  <button>
+                    Перейти к товарам
+                  </button>
+                </Link>
               </div>
-            );
-          })}
-        </div>
+            }
+          />
 
-        {/* КОРЗИНА */}
+          {/* ТОВАРЫ */}
 
-        <h2>Товары в корзине</h2>
+          <Route
+            path="/products"
+            element={
+              <>
+                <div className="search-box">
+                  <span className="search-icon">
+                    🔍
+                  </span>
 
-        {cart.length === 0 && (
-          <p>Корзина пуста</p>
-        )}
+                  <input
+                    type="text"
+                    placeholder="Поиск товара"
+                    value={search}
+                    onChange={(event) =>
+                      setSearch(
+                        event.target.value
+                      )
+                    }
+                  />
+                </div>
 
-        {cart.map(function (cartItem) {
-          return (
-            <div
-              className="cart-item"
-              key={cartItem.id}
-            >
-              <p>{cartItem.name}</p>
+                <div className="sort-box">
+                  <span className="sort-label">
+                    Сортировка:
+                  </span>
 
-              <p>
-                Цена: {cartItem.price} ₸
-              </p>
+                  <select
+                    className="sort-select"
+                    value={sortOrder}
+                    onChange={(event) =>
+                      setSortOrder(
+                        event.target.value
+                      )
+                    }
+                  >
+                    <option value="default">
+                      Без сортировки
+                    </option>
 
-              <p>
-                Количество: {cartItem.quantity}
-              </p>
+                    <option value="cheap">
+                      Сначала дешёвые
+                    </option>
 
-              <p>
-                Сумма:{" "}
-                {cartItem.price * cartItem.quantity} ₸
-              </p>
+                    <option value="expensive">
+                      Сначала дорогие
+                    </option>
+                  </select>
+                </div>
 
-              <button
-                onClick={() =>
-                  decreaseQuantity(cartItem)
-                }
-              >
-                -
-              </button>
+                <h2>
+                  Корзина: {cart.length}
+                </h2>
 
-              <button
-                onClick={() =>
-                  addToCart(cartItem)
-                }
-              >
-                +
-              </button>
+                <div className="products">
+                  {sortedProducts.map(
+                    function (
+                      currentProduct
+                    ) {
+                      return (
+                        <div
+                          className="product-card"
+                          key={
+                            currentProduct.id
+                          }
+                        >
+                          <h2>
+                            {
+                              currentProduct.name
+                            }
+                          </h2>
 
-              <button
-                onClick={() =>
-                  removeFromCart(cartItem.id)
-                }
-              >
-                Удалить
-              </button>
-            </div>
-          );
-        })}
+                          <p>
+                            {
+                              currentProduct.price
+                            }{" "}
+                            ₸
+                          </p>
 
-        {/* ИТОГОВАЯ СУММА */}
+                          <button
+                            onClick={() =>
+                              addToCart(
+                                currentProduct
+                              )
+                            }
+                          >
+                            В корзину
+                          </button>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              </>
+            }
+          />
 
-        <h2>Итого: {totalPrice} ₸</h2>
+          {/* КОРЗИНА */}
 
-        {/* ОЧИСТКА КОРЗИНЫ */}
+          <Route
+            path="/cart"
+            element={
+              <>
+                <h2>Товары в корзине</h2>
 
-        {cart.length > 0 && (
-          <button onClick={() => setCart([])}>
-            Очистить корзину
-          </button>
-        )}
-<button className="logout-button" onClick={logoutUser}>
-  Выйти
-</button>
+                {cart.length === 0 && (
+                  <p>Корзина пуста</p>
+                )}
+
+                {cart.map(
+                  function (cartItem) {
+                    return (
+                      <div
+                        className="cart-item"
+                        key={cartItem.id}
+                      >
+                        <p>
+                          {cartItem.name}
+                        </p>
+
+                        <p>
+                          Цена:{" "}
+                          {cartItem.price} ₸
+                        </p>
+
+                        <p>
+                          Количество:{" "}
+                          {cartItem.quantity}
+                        </p>
+
+                        <p>
+                          Сумма:{" "}
+                          {cartItem.price *
+                            cartItem.quantity}{" "}
+                          ₸
+                        </p>
+
+                        <button
+                          onClick={() =>
+                            decreaseQuantity(
+                              cartItem
+                            )
+                          }
+                        >
+                          -
+                        </button>
+
+                        <button
+                          onClick={() =>
+                            addToCart(
+                              cartItem
+                            )
+                          }
+                        >
+                          +
+                        </button>
+
+                        <button
+                          onClick={() =>
+                            removeFromCart(
+                              cartItem.id
+                            )
+                          }
+                        >
+                          Удалить
+                        </button>
+                      </div>
+                    );
+                  }
+                )}
+
+                <h2>
+                  Итого: {totalPrice} ₸
+                </h2>
+
+                {cart.length > 0 && (
+                  <button
+                    onClick={() =>
+                      setCart([])
+                    }
+                  >
+                    Очистить корзину
+                  </button>
+                )}
+              </>
+            }
+          />
+
+        </Routes>
+
+        <button
+          className="logout-button"
+          onClick={logoutUser}
+        >
+          Выйти
+        </button>
+
       </div>
     </div>
   );
